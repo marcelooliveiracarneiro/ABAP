@@ -1,0 +1,93 @@
+*&---------------------------------------------------------------------*
+*& Report ZMCA_OPERADORES
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT zmca_operadores.
+
+WRITE: 'ZMCA Operadores'.
+
+DATA: lv_valor_data TYPE c LENGTH 255 VALUE '11/12/2023'.
+DATA: lv_valor_inteiro TYPE i VALUE '10'.
+DATA: lv_valor_nomearquivo TYPE c LENGTH 255 VALUE 'caracter.txt'.
+DATA: lv_valor_string TYPE string VALUE 'ABAP NO ULTIMO'.
+
+IF lv_valor_data = '11/12/2023'.
+*IF lv_valor_data EQ '11/12/2023'.
+  WRITE: / ' - Data válida'.
+ENDIF.
+
+IF lv_valor_inteiro <> '11'.
+*IF lv_valor_inteiro NE '11'.
+  WRITE: / ' - Valor é diferente de 11'.
+ENDIF.
+
+*IF lv_valor_inteiro > '9'.
+IF lv_valor_inteiro GT '9'.
+  WRITE: / ' - Valor é maior que 9'.
+ENDIF.
+
+IF lv_valor_inteiro >= '10'.
+*IF lv_valor_inteiro GE '10'.
+  WRITE: / ' - Valor é maior ou igual a 10'.
+ENDIF.
+
+IF lv_valor_inteiro < '11'.
+*IF lv_valor_inteiro LT '11'.
+  WRITE: / ' - Valor é menor que 11'.
+ENDIF.
+
+IF lv_valor_inteiro <= '10'.
+*IF lv_valor_inteiro LE '10'.
+  WRITE: / ' - Valor é menor ou igual a 10'.
+ENDIF.
+
+IF lv_valor_inteiro BETWEEN '10' AND '20'.
+  WRITE: / ' - Valor está entre 10 e 20'.
+ENDIF.
+
+IF lv_valor_inteiro NOT BETWEEN '11' AND '12'.
+  WRITE: / ' - Valor não está entre 11 e 20'.
+ENDIF.
+
+IF lv_valor_nomearquivo CP '*.txt'.
+  WRITE: / ' - Este arquivo é válido (.txt)'.
+ELSE.
+  WRITE: / ' - Este arquivo não é válido (.txt)'.
+ENDIF.
+
+IF lv_valor_nomearquivo CP '*.pdf'.
+  WRITE: / ' - Este arquivo é válido (.pdf)'.
+ELSE.
+  WRITE: / ' - Este arquivo não é válido (.pdf)'.
+ENDIF.
+
+IF 'ABAP NO ULTIMO' CA '0123456789'.
+  WRITE: / ' - Esta literal ', 'ABAP NO ULTIMO', ' contém literais numéricos'.
+ELSE.
+  WRITE: / ' - Esta literal ', 'ABAP NO ULTIMO', ' não contém literais numéricos'.
+ENDIF.
+
+IF lv_valor_string CA '0123456789'.
+  WRITE: / ' - Esta string ', lv_valor_string, ' contém literais numéricos'.
+ELSE.
+  WRITE: / ' - Esta string ', lv_valor_string, ' não contém literais numéricos'.
+ENDIF.
+
+IF lv_valor_string CA 'ABAP'.
+  WRITE: / ' - Esta string ', lv_valor_string, ' contém literal ', 'ABAP'.
+ELSE.
+  WRITE: / ' - Esta string ', lv_valor_string, ' não contém literal ', 'ABAP'.
+ENDIF.
+
+IF lv_valor_string CS 'ULTIMO'.
+  WRITE: / ' - Esta string ', lv_valor_string, ' contém ', 'ULTIMO'.
+ELSE.
+  WRITE: / ' - Esta string ', lv_valor_string, ' não contém ', 'ULTIMO'.
+ENDIF.
+
+IF lv_valor_string CO 'ULTIMO'.
+  WRITE: / ' - Esta string ', lv_valor_string, ' contém somente ', 'ULTIMO'.
+ELSE.
+  WRITE: / ' - Esta string ', lv_valor_string, ' não contém somente ', 'ULTIMO'.
+ENDIF.
