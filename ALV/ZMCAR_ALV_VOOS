@@ -1,0 +1,132 @@
+&---------------------------------------------------------------------
+& Report ZMCAR_ALV_VOOS
+&---------------------------------------------------------------------
+&
+&---------------------------------------------------------------------
+REPORT zmcar_alv_voos.
+
+CLASS lcl_main DEFINITION.
+
+  PUBLIC SECTION.
+    CLASS-METHODS main.
+
+   SCARR
+   SFLIGHT
+
+    TYPES BEGIN OF ty_voos,
+             carrid     TYPE scarr-carrid,
+             carrname   TYPE scarr-carrname,
+             connid     TYPE sflight-connid,
+             fldate     TYPE sflight-fldate,
+             price      TYPE sflight-price,
+             currency   TYPE sflight-currency,
+             planetype  TYPE sflight-planetype,
+             seatsmax   TYPE sflight-seatsmax,
+             seatsocc   TYPE sflight-seatsocc,
+             paymentsum TYPE sflight-paymentsum,
+             seatsmax_b TYPE sflight-seatsmax_b,
+             seatsocc_b TYPE sflight-seatsocc_b,
+             seatsmax_f TYPE sflight-seatsmax_f,
+             seatsocc_f TYPE sflight-seatsocc_f,
+           END OF ty_voos.
+
+
+   Variaveis Globais
+    CLASS-DATA gt_voos   TYPE TABLE OF ty_voos,
+                gv_carrid TYPE scarr-carrid,
+                gv_fldate TYPE sflight-fldate.
+
+
+  PRIVATE SECTION.
+
+   Métodos e atributos para o processamento do programa
+    CLASS-METHODS get_data, display_data.
+
+ENDCLASS.
+
+SELECTION-SCREEN BEGIN OF BLOCK b1 WITH FRAME TITLE TEXT-001.
+
+  SELECT-OPTIONS r_carrid FOR lcl_main=gv_carrid,
+                  r_fldate FOR lcl_main=gv_fldate.
+
+SELECTION-SCREEN END OF BLOCK b1.
+
+CLASS lcl_main IMPLEMENTATION.
+
+  METHOD main.
+
+    get_data( ).
+    display_data( ).
+
+  ENDMETHOD.
+
+
+  METHOD get_data.
+
+    SELECT  FROM scarr AS scarr
+      INNER JOIN sflight AS sflight
+      ON scarr~carrid EQ sflight~carrid
+      INTO CORRESPONDING FIELDS OF TABLE @gt_voos
+      WHERE scarr~carrid IN @r_carrid
+      AND sflight~fldate IN @r_fldate.
+
+    SELECT
+      scarr~carrid,
+      scarr~carrname,
+      sflight~connid,
+      sflight~fldate,
+      sflight~price,
+      sflight~currency,
+      sflight~planetype,
+      sflight~seatsmax,
+      sflight~seatsocc,
+      sflight~paymentsum,
+      sflight~seatsmax_b,
+      sflight~seatsocc_b,
+      sflight~seatsmax_f,
+      sflight~seatsocc_f
+      FROM scarr AS scarr
+      INNER JOIN sflight AS sflight
+      ON scarr~carrid EQ sflight~carrid
+      INTO TABLE @gt_voos
+      WHERE scarr~carrid IN @r_carrid
+      AND sflight~fldate IN @r_fldate.
+
+    IF sy-subrc NE 0.
+
+      MESSAGE TEXT-002 TYPE 'E'.
+      LEAVE LIST-PROCESSING.
+
+    ENDIF.
+
+  ENDMETHOD.
+
+  METHOD display_data.
+
+    TRY.
+
+        cl_salv_table=factory(
+          IMPORTING
+            r_salv_table   = DATA(lo_salv_table)
+          CHANGING
+            t_table        = gt_voos
+        ).
+
+      CATCH cx_salv_msg.
+
+    ENDTRY.
+
+    IF lo_salv_table IS BOUND.
+
+      lo_salv_table-get_functions( )-set_all( ).
+      lo_salv_table-display( ).
+
+    ENDIF.
+
+  ENDMETHOD.
+
+ENDCLASS.
+
+START-OF-SELECTION.
+
+  lcl_main=main( ).
