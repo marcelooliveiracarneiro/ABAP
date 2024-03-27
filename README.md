@@ -1,45 +1,32 @@
-# ABAP
+<h1> ABAP </h1>
 
-# SEGW
+SAP Help Portal
+<br>https://help.sap.com/docs/
 
-Sempre implementar em ...._EXT, para a geração dos Objetos não substituir o Código.
+SAP Community
+<br>https://community.sap.com/
 
-Não consegue gerar objetos em outro idioma a não ser "EN"
-Versão 20.22 entrar em Inglês, evitar DUMP
+SAP GUI Documentação
+<br>https://help.sap.com/docs/sap_gui_for_windows?locale=en-US/
 
-Categoria              Erro de programação ABAP
-Erro tpo.exec.         UNCAUGHT_EXCEPTION
-Exceção                /IWBEP/CX_SBCM_FATAL
-ABAP: programa         /IWBEP/CL_SBUI_PR_CMD_GENERA
-Componente de aplicaçãoOPU-BSE-SB
-Data e hora            12.03.2024 13:14:34 (CET)
+ABAP Documentação
+<br>https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/
 
+ABAP Development Community
+<br>https://pages.community.sap.com/topics/abap/
+<br><br><br>
 
-Catálogo de Serviços
-/IWFND/MAINT_SERVICE
-/IWFND/ERROR_LOG
-Sempre que transportar, precisa ativar.
-/IWBEP/CL_MGW_DATA_UTIL
+## SAP Gateway
 
++ ZMCAGW_VOOS
 
+<br>
 
-# Postman
+## ALV
 
-{{URL}}/<sodata service>/ZMCAGW_VOOS_SRV/
-{{URL}}/<sodata service>/ZMCAGW_VOOS_SRV/$metadata
-{{URL}}/<sodata service>/ZMCAGW_VOOS_SRV/CompanhiaAereaSet
-{{URL}}/<sodata service>/ZMCAGW_VOOS_SRV/HorarioVooSet
-{{URL}}/<sodata service>/ZMCAGW_VOOS_SRV/VooSet
++ ZMCA_OPERADORES
++ ZMCAR_ALV_BANCO
++ ZMCAR_ALV_BANCO_REV1
++ ZMCAR_ALV_VOOS
 
-Header
-x-csrf-token	fetch
-Cookie	
-
-Params
-$format	Ex: $format=json
-$filter	Ex: $filter=( Carrid eq '' )
-$orderby	Ex: $orderby=Carrid ASC
-$top	Ex: $top=10
-$skip	Ex: $skip=2
-$expand	Ex: $expand=<association 1>, ..., <Association N>
-
+<br><br>
